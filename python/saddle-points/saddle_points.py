@@ -3,24 +3,37 @@ def saddle_points(matrix):
         return set()
 
     length = len(matrix[0])
-    for row in matrix:
+    cols = dict()
+    row_set = set()
+
+    for i, row in enumerate(matrix):
         if len(row) != length:
             raise ValueError('irregular matrix')
-
-    result = set()
-
-    # enumerate rows of matrix
-    for i, row in enumerate(matrix):
-        # enumerate across columns of row
+        c = row.index(max(row))
+        row_set.add((i, c))
+        while True:
+            try:
+                c = row.index(max(row), c + 1)
+                row_set.add((i, c))
+            except ValueError:
+                break
         for j, col in enumerate(row):
-            # if value is max in row, it is potential saddle point
-            if col == max(row):
-                target_value = matrix[i][j]
-                # loop through column values to find smaller value
-                for k in range(len(matrix)):
-                    if matrix[k][j] < target_value:
-                        break
-                else:
-                    # no smaller value found in column, value is saddle point
-                    result.add((i, j))
-    return result
+            col_min = cols.get(j, (999,))
+            value = matrix[i][j]
+            if value < col_min[0]:
+                cols[j] = (value, (i, j))
+            elif value == col_min[0]:
+                cols[j] += ((i, j),)
+
+    col_set = set()
+    for k in cols:
+        for i in range(1, len(cols[k])):
+            col_set.add(cols[k][i])
+
+    return row_set & col_set
+
+
+if __name__ == '__main__':
+    m = [[9, 8, 7], [5, 3, 2], [6, 6, 7]]
+
+    print(saddle_points(m))
