@@ -1,7 +1,16 @@
 import timeit
 
+
+def transpose_matrix(m):
+    return [[m[j][i] for j in range(len(m[0]))] for i in range(len(m))]
+
+
 setup = 'from saddle_points import saddle_points'
 stmt = 'saddle_points([[9, 8, 7], [5, 3, 2], [6, 6, 7]])'
+# setup = 'from __main__ import transpose_matrix'
+# stmt = 'transpose_matrix([[9, 8, 7], [5, 3, 2], [6, 6, 7]])'
+# 2.2415304140304215
+# 2.1866271650069393
 
 print(timeit.timeit(stmt=stmt, setup=setup, number=1000000))
 
