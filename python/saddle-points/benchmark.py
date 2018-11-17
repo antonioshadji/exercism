@@ -16,3 +16,4 @@ print(timeit.timeit(stmt=stmt, setup=setup, number=1000000))
 # 7.975111273990478
 # added 2nd test if loop needed
 # 7.020087717974093
+# 6.256525141012389

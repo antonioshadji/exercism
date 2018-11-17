@@ -9,16 +9,10 @@ def saddle_points(matrix):
     for i, row in enumerate(matrix):
         if len(row) != length:
             raise ValueError('irregular matrix')
-        c = row.index(max(row))
-        row_set.add((i, c))
-        if row.count(max(row)) > 1:
-            while True:
-                try:
-                    c = row.index(max(row), c + 1)
-                    row_set.add((i, c))
-                except ValueError:
-                    break
         for j, col in enumerate(row):
+            if col == max(row):
+                row_set.add((i, j))
+
             col_min = cols.get(j, (999,))
             if col < col_min[0]:
                 cols[j] = (col, (i, j))
