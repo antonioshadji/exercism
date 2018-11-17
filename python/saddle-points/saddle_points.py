@@ -20,10 +20,9 @@ def saddle_points(matrix):
                     break
         for j, col in enumerate(row):
             col_min = cols.get(j, (999,))
-            value = matrix[i][j]
-            if value < col_min[0]:
-                cols[j] = (value, (i, j))
-            elif value == col_min[0]:
+            if col < col_min[0]:
+                cols[j] = (col, (i, j))
+            elif col == col_min[0]:
                 cols[j] += ((i, j),)
 
     col_set = set()
