@@ -16,15 +16,20 @@ char *abbreviate(char *phrase) {
   acronym[0] = phrase[0];
   int index = 1;
 
-  while (*phrase != '\0') {
+  while (*phrase++ != '\0') {
     //printf("%s\n", phrase);
-    if (isspace(*phrase++)) {
-      //printf("found space\n");
+    if (isspace(*phrase)) {
+      printf("found space\n");
+      char *next = (char*) *(phrase+1);
+      printf("next: %s\n", next)
       word_count++;
-      //printf("words: %d\n", word_count);
+      printf("words: %d\n", word_count);
       // printf("acronym: %s\n", acronym);
-      acronym[index++] = toupper(phrase[0]);
+      // acronym[index++] = toupper(phrase[0]);
+      acronym[index++] = toupper(++next);
       // printf("acronym: %s\n", acronym);
+    } else {
+      printf("skip work: %s\n", phrase);
     }
   }
 
